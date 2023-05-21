@@ -3,6 +3,7 @@ var languageButtonsEl = document.querySelector('#language-buttons');
 var nameInputEl = document.querySelector('#username');
 var repoContainerEl = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector('#repo-search-term');
+var apiKey = "bc9531820405a218518fa46f5eca8e90";
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -15,7 +16,7 @@ var formSubmitHandler = function (event) {
     repoContainerEl.textContent = '';
     nameInputEl.value = '';
   } else {
-    alert('Please enter a GitHub username');
+    alert('Please enter a City');
   }
 };
 
@@ -32,7 +33,7 @@ var buttonClickHandler = function (event) {
 };
 
 var getUserRepos = function (user) {
-  var apiUrl = 'https://api.github.com/users/' + user + '/repos';
+  var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + user + '&appid=' + APIKey';
 
   fetch(apiUrl)
     .then(function (response) {

@@ -20,13 +20,14 @@ var formSubmitHandler = function(event) {
   }
 };
 
-/*var buttonClickHandler = function(event) {
+var buttonClickHandler = function(event) {
   var language = event.target.getAttribute('data-language');
 
   if (language) {
+    // You can call a different function here based on the selected language if needed
     alert('You clicked the ' + language + ' button');
   }
-};*/
+};
 
 var getWeather = function(city) {
   var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey;
@@ -36,6 +37,7 @@ var getWeather = function(city) {
       if (response.ok) {
         response.json().then(function(data) {
           displayWeather(data, city);
+          saveCitySearch(city);
         });
       } else {
         alert('Error: ' + response.statusText);
@@ -69,5 +71,43 @@ var displayWeather = function(weatherData, city) {
   repoContainerEl.appendChild(windSpeedEl);
 };
 
+var saveCitySearch = function(city) {
+  var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];
+
+  // Check if the city already exists in the past searches
+  var existingIndex = pastSearches.findIndex(function(search) {
+    return search.toLowerCase() === city.toLowerCase();
+  });
+
+  // If the city is not already in the past searches, add it
+  if (existingIndex === -1) {
+    pastSearches.push(city);
+    // Save the updated array in localStorage
+    localStorage.setItem('citySearches', JSON.stringify(pastSearches));
+  }
+};
+
+var loadPastSearches = function() {
+  var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];
+
+  // Display past searches
+  for (var i = 0; i < pastSearches.length; i++) {
+    var searchItemEl = document.createElement('button');
+    searchItemEl.textContent = pastSearches[i];
+    searchItemEl.classList.add('btn');
+    searchItemEl.classList.add('past-search');
+    languageButtonsEl.appendChild(searchItemEl);
+  }
+};
+
+var pastSearchClickHandler = function(event) {
+  var city = event.target.textContent;
+  getWeather(city);
+};
+
 userFormEl.addEventListener('submit', formSubmitHandler);
 languageButtonsEl.addEventListener('click', buttonClickHandler);
+languageButtonsEl.addEventListener('click', pastSearchClickHandler);
+
+// Load past searches on page load
+loadPastSearches();

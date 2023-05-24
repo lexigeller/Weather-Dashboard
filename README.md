@@ -14,6 +14,7 @@ To get the forecast for a city, open ([Weather Dashboard](https://lexigeller.git
 
 ![Screenshot](./assets/images/screenshot1.PNG)
 ![Screenshot2](./assets/images/screenshot2.PNG)
+
 ## Credits
 
 N/A

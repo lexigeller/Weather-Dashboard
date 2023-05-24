@@ -1,8 +1,8 @@
 var userFormEl = document.querySelector('#user-form');
 var searchHistoryEl = document.querySelector('#search-history');
-var nameInputEl = document.querySelector('#username');
-var repoContainerEl = document.querySelector('#repos-container');
-var repoSearchTerm = document.querySelector('#repo-search-term');
+var nameInputEl = document.querySelector('#cityname');
+var forecastContainerEl = document.querySelector('#forecast-container');
+var forecastResults = document.querySelector('#forecast-results');
 var apiKey = "bc9531820405a218518fa46f5eca8e90";
 
 var formSubmitHandler = function(event) {
@@ -13,7 +13,7 @@ var formSubmitHandler = function(event) {
   if (city) {
     getWeather(city);
 
-    repoContainerEl.textContent = '';
+    forecastContainerEl.textContent = '';
     nameInputEl.value = '';
   } else {
     alert('Please enter a city');
@@ -45,11 +45,11 @@ var getWeather = function(city) {
   
   var displayWeather = function(weatherData, city) {
     // Clear previous weather data
-    repoContainerEl.innerHTML = '';
+    forecastContainerEl.innerHTML = '';
   
     var cityNameEl = document.createElement('h4');
     cityNameEl.textContent = city;
-    repoContainerEl.appendChild(cityNameEl);
+    forecastContainerEl.appendChild(cityNameEl);
   
     var forecastData = weatherData.list;
     for (var i = 0; i < forecastData.length; i += 8) {
@@ -75,7 +75,7 @@ var getWeather = function(city) {
       windSpeedEl.textContent = 'Wind Speed: ' + wind + ' MPH';
       forecastEl.appendChild(windSpeedEl);
   
-      repoContainerEl.appendChild(forecastEl);
+      forecastContainerEl.appendChild(forecastEl);
     }
   };  
 

@@ -71,7 +71,8 @@ var getWeather = function(city) {
       forecastEl.appendChild(humidityEl);
 
       var windSpeedEl = document.createElement('p');
-      windSpeedEl.textContent = 'Wind Speed: ' + forecastData[i].wind.speed + ' MPH';
+      var wind = Math.round(forecastData[i].wind.speed * 2.237); // Convert mps to MPH
+      windSpeedEl.textContent = 'Wind Speed: ' + wind + ' MPH';
       forecastEl.appendChild(windSpeedEl);
   
       repoContainerEl.appendChild(forecastEl);

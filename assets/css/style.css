@@ -1,6 +1,5 @@
 :root {
     --secondary: #9caea9;
-    --tertiary: #788585;
     --light-blue: #4086ff;
     --blue: #190d57;
     --border-radius: 0.3rem;
@@ -110,28 +109,23 @@
     margin-bottom: 10px;
     padding: 1.5%;
     border-radius: var(--border-radius);
-    background-color: var(--light-blue);
-    color: var(--blue);
+    background-color: var(--blue);
     text-decoration: none;
   }
   
   .list-item:hover {
     background-color: var(--blue);
   }
-  
-  .status-icon {
-    padding: 2px 5px;
-    margin: 0 5px;
-    background-color: rgba(255, 255, 255, 1);
+
+  .forecast-item {
+    background-color: var(--blue);
+    color: white;
+    padding: left 1%, top 5%;
     border-radius: var(--border-radius);
-  }
-  
-  .icon-danger {
-    color: rgb(255, 70, 70);
-  }
-  
-  .icon-success {
-    color: rgb(29, 153, 255);
+    border: 2px solid var(--light-blue);
+    width: 30%;
+    height: fit-content;
+    text-align: center;
   }
   
   /* CARDS */

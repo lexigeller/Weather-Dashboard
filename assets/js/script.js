@@ -69,11 +69,14 @@ var getWeather = function(city) {
       var humidityEl = document.createElement('p');
       humidityEl.textContent = 'Humidity: ' + forecastData[i].main.humidity + '%';
       forecastEl.appendChild(humidityEl);
+
+      var windSpeedEl = document.createElement('p');
+      windSpeedEl.textContent = 'Wind Speed: ' + forecastData[i].wind.speed + ' MPH';
+      forecastEl.appendChild(windSpeedEl);
   
       repoContainerEl.appendChild(forecastEl);
     }
-  };
-  
+  };  
 
 var saveCitySearch = function(city) {
     var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];

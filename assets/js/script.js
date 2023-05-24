@@ -1,5 +1,5 @@
 var userFormEl = document.querySelector('#user-form');
-var languageButtonsEl = document.querySelector('#language-buttons');
+var searchHistoryEl = document.querySelector('#search-history');
 var nameInputEl = document.querySelector('#username');
 var repoContainerEl = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector('#repo-search-term');
@@ -98,7 +98,7 @@ var saveCitySearch = function(city) {
       searchItemEl.textContent = city;
       searchItemEl.classList.add('btn');
       searchItemEl.classList.add('past-search');
-      languageButtonsEl.appendChild(searchItemEl);
+      searchHistoryEl.appendChild(searchItemEl);
     }
   };  
 
@@ -111,7 +111,7 @@ var loadPastSearches = function() {
     searchItemEl.textContent = pastSearches[i];
     searchItemEl.classList.add('btn');
     searchItemEl.classList.add('past-search');
-    languageButtonsEl.appendChild(searchItemEl);
+    searchHistoryEl.appendChild(searchItemEl);
   }
 };
 
@@ -121,8 +121,8 @@ var pastSearchClickHandler = function(event) {
 };
 
 userFormEl.addEventListener('submit', formSubmitHandler);
-languageButtonsEl.addEventListener('click', buttonClickHandler);
-languageButtonsEl.addEventListener('click', pastSearchClickHandler);
+searchHistoryEl.addEventListener('click', buttonClickHandler);
+searchHistoryEl.addEventListener('click', pastSearchClickHandler);
 
 // Load past searches on page load
 loadPastSearches();

@@ -22,11 +22,6 @@ var formSubmitHandler = function(event) {
 
 var buttonClickHandler = function(event) {
   var language = event.target.getAttribute('data-language');
-
-  if (language) {
-    // You can call a different function here based on the selected language if needed
-    alert('You clicked the ' + language + ' button');
-  }
 };
 
 var getWeather = function(city) {

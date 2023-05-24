@@ -72,20 +72,27 @@ var displayWeather = function(weatherData, city) {
 };
 
 var saveCitySearch = function(city) {
-  var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];
-
-  // Check if the city already exists in the past searches
-  var existingIndex = pastSearches.findIndex(function(search) {
-    return search.toLowerCase() === city.toLowerCase();
-  });
-
-  // If the city is not already in the past searches, add it
-  if (existingIndex === -1) {
-    pastSearches.push(city);
-    // Save the updated array in localStorage
-    localStorage.setItem('citySearches', JSON.stringify(pastSearches));
-  }
-};
+    var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];
+  
+    // Check if the city already exists in the past searches
+    var existingIndex = pastSearches.findIndex(function(search) {
+      return search.toLowerCase() === city.toLowerCase();
+    });
+  
+    // If the city is not already in the past searches, add it
+    if (existingIndex === -1) {
+      pastSearches.push(city);
+      // Save the updated array in localStorage
+      localStorage.setItem('citySearches', JSON.stringify(pastSearches));
+  
+      // Update the displayed past searches
+      var searchItemEl = document.createElement('button');
+      searchItemEl.textContent = city;
+      searchItemEl.classList.add('btn');
+      searchItemEl.classList.add('past-search');
+      languageButtonsEl.appendChild(searchItemEl);
+    }
+  };  
 
 var loadPastSearches = function() {
   var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];

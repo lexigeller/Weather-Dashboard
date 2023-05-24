@@ -25,46 +25,55 @@ var buttonClickHandler = function(event) {
 };
 
 var getWeather = function(city) {
-  var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey;
-
-  fetch(apiUrl)
-    .then(function(response) {
-      if (response.ok) {
-        response.json().then(function(data) {
-          displayWeather(data, city);
-          saveCitySearch(city);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function(error) {
-      alert('Unable to connect to OpenWeatherMap');
-    });
-};
-
-var displayWeather = function(weatherData, city) {
-  // Clear previous weather data
-  repoContainerEl.innerHTML = '';
-
-  var cityNameEl = document.createElement('h4');
-  cityNameEl.textContent = city;
-  repoContainerEl.appendChild(cityNameEl);
-
-  var temperatureEl = document.createElement('p');
-  temperatureEl.textContent = 'Temperature: ' + weatherData.main.temp + ' °F';
-  repoContainerEl.appendChild(temperatureEl);
-
-  // Display additional weather data as needed
-
-  var humidityEl = document.createElement('p');
-  humidityEl.textContent = 'Humidity: ' + weatherData.main.humidity + '%';
-  repoContainerEl.appendChild(humidityEl);
-
-  var windSpeedEl = document.createElement('p');
-  windSpeedEl.textContent = 'Wind Speed: ' + weatherData.wind.speed + ' MPH';
-  repoContainerEl.appendChild(windSpeedEl);
-};
+    var apiUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=' + apiKey;
+  
+    fetch(apiUrl)
+      .then(function(response) {
+        if (response.ok) {
+          response.json().then(function(data) {
+            displayWeather(data, city);
+            saveCitySearch(city);
+          });
+        } else {
+          alert('Error: ' + response.statusText);
+        }
+      })
+      .catch(function(error) {
+        alert('Unable to connect to OpenWeatherMap');
+      });
+  };
+  
+  var displayWeather = function(weatherData, city) {
+    // Clear previous weather data
+    repoContainerEl.innerHTML = '';
+  
+    var cityNameEl = document.createElement('h4');
+    cityNameEl.textContent = city;
+    repoContainerEl.appendChild(cityNameEl);
+  
+    var forecastData = weatherData.list;
+    for (var i = 0; i < forecastData.length; i += 8) {
+      var forecastEl = document.createElement('div');
+      forecastEl.classList.add('forecast-item');
+  
+      var dateEl = document.createElement('p');
+      var date = new Date(forecastData[i].dt * 1000);
+      dateEl.textContent = date.toLocaleDateString();
+      forecastEl.appendChild(dateEl);
+  
+      var temperatureEl = document.createElement('p');
+      var temperature = Math.round(((forecastData[i].main.temp - 273.15) * 9) / 5 + 32); // Convert temperature from Kelvin to Fahrenheit
+      temperatureEl.textContent = 'Temperature: ' + temperature + ' °F';
+      forecastEl.appendChild(temperatureEl);
+  
+      var humidityEl = document.createElement('p');
+      humidityEl.textContent = 'Humidity: ' + forecastData[i].main.humidity + '%';
+      forecastEl.appendChild(humidityEl);
+  
+      repoContainerEl.appendChild(forecastEl);
+    }
+  };
+  
 
 var saveCitySearch = function(city) {
     var pastSearches = JSON.parse(localStorage.getItem('citySearches')) || [];
